@@ -54,5 +54,21 @@ game.spawn.enemy(type)
  *If you pass in averageJoe it will spawn a low-level enemy that travels at a decent speed.
  *To customize, add some enemies of your own!
  */
-//Work in Progress
+```
+### Object : player
+```javascript
+player.DOM()
+/*
+ *player.DOM() really just gives you the Node (.box1)
+ */
+player.x()
+/*
+ *player.x() takes the transfrom object, finds the translate and returns the x.
+ *This was before I started to use JQuery, so I couldn't use .offset() or .postition()
+ */
+player.y()
+/*
+ *It does the same function of player.x(), but It grabs the y transition
+ */
+//work in progress
 ```
