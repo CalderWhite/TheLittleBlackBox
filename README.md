@@ -18,3 +18,16 @@ Pause game.
 (and un-pause)
 ### ctrl + s
 Spawn a low-level enemy.
+# Developers!
+If you are a developer, "We want you!". We encourge all  
+developers hack our api and find out how it works.  
+So fork! fork! fork!  
+Also, here are some pointers!
+## The Main Structure
+The Little Black Box is object oriented!  
+This means it'll be easy to learn, and easy to program your own branches of this game.  
+### Object : Game
+```javascript
+
+/* work in progress */
+```
