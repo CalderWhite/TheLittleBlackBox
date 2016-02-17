@@ -27,7 +27,32 @@ Also, here are some pointers!
 The Little Black Box is object oriented!  
 This means it'll be easy to learn, and easy to program your own branches of this game.  
 ### Object : Game
+The game object has a couple of different properties and methods,  
+but you'll only need to use some.  
 ```javascript
-
-/* work in progress */
+game.initializeLocal();
+/*
+ *what this method does is finish off the boot sequence,  
+ *the only reason you would touch this is to change the values it sets at the beginning of the game
+ *(i.e. player.weapons.reloadTime or player.weapons.bulletPower)
+ */
+game.reloadBar
+/*
+ *This object is all to do with the reload bar.
+ *However, due to troubles the code is ugly and not even functioning that well.
+ *Feel free to improve the code (actually, make a pull request if you do!),
+ *but that's not really where the fun is...
+ */
+game.spawn
+/*
+ *game.spawn has only one object at the moment, but does a bit of the work for you when spawning
+ *an enemy. This is a real oppourtunity to customize the game to you! (read on vvv)
+ */
+game.spawn.enemy(type)
+/*
+ *This will spawn an enemy base on what string you pass in for [type]
+ *If you pass in averageJoe it will spawn a low-level enemy that travels at a decent speed.
+ *To customize, add some enemies of your own!
+ */
+//Work in Progress
 ```
