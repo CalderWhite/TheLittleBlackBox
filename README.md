@@ -2,6 +2,7 @@
 TheLittleBlackBox is an hmtl5 game that uses tags to  
 create a fun game that you can play for ages without getting tired of it!
 ## [Download It!](https://github.com/TheSeceretDevs/TheLittleBlackBox/archive/master.zip)
+## [Play it now!](https://theseceretdevs.github.io/TheLittleBlackBox)
 # Version
 We haven't really reached alpha yet!
 # Controls
