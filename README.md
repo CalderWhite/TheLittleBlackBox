@@ -2,6 +2,7 @@
 TheLittleBlackBox is an hmtl5 game that uses tags to  
 create a fun game that you can play for ages without getting tired of it!
 ## [Download It!](https://github.com/TheSeceretDevs/TheLittleBlackBox/archive/master.zip)
+## [Play it now!](https://theseceretdevs.github.io/TheLittleBlackBox)
 # Version
 We haven't really reached alpha yet!
 # Controls
@@ -17,3 +18,8 @@ Pause game.
 (and un-pause)
 ### ctrl + s
 Spawn a low-level enemy.
+# Developers!
+If you are a developer, "We want you!". We encourge all  
+developers to hack our api and find out how it works.  
+So fork! fork! fork!  
+Also, here are some [pointers](https://github.com/TheSeceretDevs/TheLittleBlackBox/blob/master/DevInfo.md)
