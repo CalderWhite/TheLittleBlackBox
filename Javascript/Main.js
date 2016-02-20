@@ -1,7 +1,7 @@
 /* PROPERTY OF CALDER READE MILSOM WHITE 
  * COPYRIGHT 2016 Feb. 15th
  * contact : calderwhite1@gmail.com
-*/
+ */
 
 var game = {
 	gameMode : null,
@@ -39,6 +39,10 @@ var game = {
         });
 		Mousetrap.bind('ctrl+s', function(){
             game.spawn.enemy("averageJoe");
+            return false; 
+        });
+		Mousetrap.bind('ctrl+t', function(){
+            game.spawn.enemy("tracker");
             return false; 
         });
 		//at the end so there's no confusion
@@ -91,6 +95,7 @@ var game = {
 		}
 	},
 	enemyCounter : 0,
+	enemyArray : [],
 	spawn : {
 		enemy : function(type) {
 			switch(type){
@@ -99,12 +104,13 @@ var game = {
 				b.initialize();
 				break;
 				case "tracker":
-				var b = new trackerEnemy(1,3);
+				var b = new trackerEnemy(1,200);
 				b.initialize();
 				break;
 			}
 		}
 	}
+
 };
 
 var player = {
@@ -189,6 +195,7 @@ var player = {
 		bulletPower : null
 		,
 		//number 0.5 is pretty fast (goes into 0.5s in my fireBullet() function)
+		//you probably shouldn't modify this ;)
 		bulletSpeed : null
 		,
 		//denominator for game.reloadBar.tryReload variable "updateInterval"
@@ -382,17 +389,22 @@ function fireBullet(power,velocity,startx,starty){
 	//putting in place to start
 	x.style.transform = "translate(" + startx + "," + starty + ")";
 	/*this is to make sure the velocity of the bullet is consistent no matter where the bullet is shot.
-	 *If the bullet is shot right before the edge of the screen and the velocity is a direct input, it will travel at a muc hslower speed
+	 *If the bullet is shot right before the edge of the screen and the velocity is a direct input, it will travel at a much slower speed
 	 *than if it is shot at the left edge of the screen.
 	 *This is because the computer is trying to make the bullet traveling time last the same amout no matter where it is shot.
 	*/
 	x.style.transition = "all " + ((velocity/window.innerWidth) * (window.innerWidth - Number(player.x().substring(0,player.x().length - 2)))).toString() + "s";
 	x.damage = power;
 	document.body.appendChild(x);
+	//adding it to the new array system
+	game.enemyArray.push(x);
 	setTimeout(function(){
 		x.style.transform = "translate(" + window.innerWidth + "px," + starty + ")";
 		setTimeout(function(){
 			document.body.removeChild(x);
+			//This is removing it from my new array system to remove Jquery bugs.
+			var Aplace = game.enemyArray.indexOf(x)
+			game.enemyArray.splice(Aplace,1);
 		},velocity * 1000)
 	},10);
 };
@@ -416,14 +428,13 @@ function enemy (health,speed) {
 	this.initialize = function() {
 		var a = this;
 		var checker = window.setInterval(function(){
-			//document.getElementById("bstatus").textContent = "Enemy Hit? : " + funcs.checkCollision($(x),$(".GameBullet"));
-			for (i=0;i<document.getElementsByClassName("GameBullet").length; i++) {
-				if(funcs.checkCollision($(x),$(".GameBullet"))){
-					a.health = a.health - $(".GameBullet")[0].damage;
-					document.body.removeChild(document.getElementsByClassName("GameBullet")[i]);
-					$(x)[0].style.backgroundColor = funcs.shadeColor1("cc00ff",a.health);
+			for(i=0;i<game.enemyArray.length;i++){
+				var thisNode = game.enemyArray[i];
+				if(funcs.checkCollision($(x),$(thisNode))){
+					a.health = a.health - thisNode.damage;
+					document.body.removeChild(thisNode);
 				}
-			};
+			}
 			if(a.health <= 0 || $(x).offset().left <= 0){
 				document.body.removeChild(x);
 				game.enemyCounter = game.enemyCounter - 1;
@@ -442,6 +453,7 @@ function trackerEnemy(health,speed){
 	var posx = (window.innerWidth - 30);
 	var posy = Math.floor(Math.random() * 500);
 	x.style.transform = "translate(" + posx + "px," + posy + "px)";
+
 	x.style.transition = "all " + speed + "s";
 	document.body.appendChild(x);
 	//properties & methods
@@ -451,23 +463,44 @@ function trackerEnemy(health,speed){
 	this.initialize = function() {
 		var a = this;
 		var tracker = window.setInterval(function(){
-			x.style.transform = "transition(" + player.x + "px," + player.y + "px)"
-		},50)
+		var meX = $(x).offset().left;
+		var meY = $(x).offset().top;
+	if($(".box1").offset().left < meX){
+	var x1 = meX;
+	var x2 = $(".box1").offset().left; 
+	}
+	else{
+	var x1 = $(".box1").offset().left;
+	var x2 = meX;	
+	};
+	if($(".box1").offset().top < meY){
+	var y1 = meY;	
+	var y2 = $(".box1").offset().top;
+	}
+	else{
+	var y1 = $(".box1").offset().top;
+	var y2 = meY;		
+	};
+	var distance = Math.sqrt((x1 - x2)^2 + (y1 - y2)^2);
+	x.style.transition = "all " + (distance/speed).toString() + "s";
+	//x.style.transition = speed;
+			x.style.transform = "translate(" + (Number(player.x().substring(0,player.x().length - 2)) - 15).toString() + "px" + "," + (Number(player.y().substring(0,player.y().length - 2)) - 15).toString() + "px" + ")";
+		},100)
 
 		var checker = window.setInterval(function(){
-			document.getElementById("bstatus").textContent = "Enemy Hit? : " + funcs.checkCollision($(x),$(".GameBullet"));
-			for (i=0;i<document.getElementsByClassName("GameBullet").length; i++) {
-				if(funcs.checkCollision($(x),$(".GameBullet"))){
-					a.health = a.health - $(".GameBullet")[0].damage;
-					document.body.removeChild(document.getElementsByClassName("GameBullet")[i]);
-					$(x)[0].style.backgroundColor = funcs.shadeColor1("cc00ff",a.health);
 
+
+			//console.log(distance);
+			for(i=0;i<game.enemyArray.length;i++){
+				var thisNode = game.enemyArray[i];
+				if(funcs.checkCollision($(x),$(thisNode))){
+					a.health = a.health - thisNode.damage;
+					document.body.removeChild(thisNode);
 				}
-			};
+			}
 			if(a.health <= 0 || $(x).offset().left <= 0){
 				document.body.removeChild(x);
 				game.enemyCounter = game.enemyCounter - 1;
-				window.clearInterval(tracker)
 				window.clearInterval(checker);
 			}
 		},10)
@@ -486,6 +519,7 @@ function boot (num) {
 	}
 };
 
+ 	
 /*
  *For safe keeping:
  *(Number(starty.substring(0,starty.length-2)) - height/2) <-- for middle of div
@@ -504,3 +538,4 @@ function boot (num) {
  	(Number(player.y().substring(0,player.y().length - 2)) - 7.5).toString() + "px"
  	)
 */
+
