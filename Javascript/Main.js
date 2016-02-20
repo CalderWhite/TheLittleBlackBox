@@ -104,7 +104,8 @@ var game = {
 				b.initialize();
 				break;
 				case "tracker":
-				var b = new trackerEnemy(1,200);
+				//the second perameter is roughly half the width of my laptop screen
+				var b = new trackerEnemy(1,750);
 				b.initialize();
 				break;
 			}
@@ -481,8 +482,21 @@ function trackerEnemy(health,speed){
 	var y1 = $(".box1").offset().top;
 	var y2 = meY;		
 	};
-	var distance = Math.sqrt((x1 - x2)^2 + (y1 - y2)^2);
-	x.style.transition = "all " + (distance/speed).toString() + "s";
+		/*
+	console.log("x1: " + x1 + " x2: " + x2 + " y1: " + y1 + " y2: " + y2
+		+"\n"
+		+(x1 - x2).toString()
+		+" "
+		+(y1 - y2).toString()
+		);
+		*/
+	var distance = Math.sqrt(Math.pow(x1 - x2,2) + Math.pow(y1 - y2,2));
+	//console.log(distance);
+	var actualVelocity = distance/speed;
+	if(actualVelocity < 0.1){
+		actualVelocity = 0.1;
+	};
+	x.style.transition = "all " + actualVelocity.toString() + "s";
 	//x.style.transition = speed;
 			x.style.transform = "translate(" + (Number(player.x().substring(0,player.x().length - 2)) - 15).toString() + "px" + "," + (Number(player.y().substring(0,player.y().length - 2)) - 15).toString() + "px" + ")";
 		},100)
@@ -502,6 +516,7 @@ function trackerEnemy(health,speed){
 				document.body.removeChild(x);
 				game.enemyCounter = game.enemyCounter - 1;
 				window.clearInterval(checker);
+				window.clearInterval(tracker);
 			}
 		},10)
 
