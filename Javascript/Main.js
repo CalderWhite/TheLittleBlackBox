@@ -53,6 +53,7 @@ var game = {
 		player.weapons.bulletSpeed = 0.5;
 		//200 for fun mode :D (1000 for boring realistic mode)
 		player.weapons.reloadTime = 200;
+		player.health = 3;
 		game.gameMode = "local";
 	},
 	reloadBar : {
@@ -95,6 +96,7 @@ var game = {
 		}
 	},
 	enemyCounter : 0,
+	bulletArray : [],
 	enemyArray : [],
 	spawn : {
 		enemy : function(type) {
@@ -177,7 +179,7 @@ var player = {
 							}
 						}			
 					}
-				}
+				};
 				if(player.shootMode === "click"){
 					document.onclick = function() {
 						if(player.pause === false){
@@ -185,11 +187,14 @@ var player = {
 							player.shoot();
 						}						
 					};
-				}
+				};
 				if(player.pause === true){
 					//so that when the game's paused and you <press a key> on something it doesn't just randomly do something in-game
 					console.log("you are paused")
-				}
+				};
+				window.setInterval(function(){
+					player.checkHealth();
+				},10);
 	},
 	weapons : {
 		//for damage
@@ -213,6 +218,62 @@ var player = {
  			)
 		}
 		game.reloadBar.tryReload();
+	},
+	health : null,
+	checkHealth : function() {
+		//checking if you're hit by an enemy
+		for(i=0;i<game.enemyArray.length;i++){
+			var thisNode = game.enemyArray[i];
+			if(funcs.checkCollision($(".box1"),$(thisNode))){
+				//you've been hit!
+				player.health = player.health - 1;
+				game.togglePause();
+				//remeber to remove all enemies
+			}
+			else{
+				pass;
+			}
+		}
+		//checking if you're dead.
+		var myHealth = player.health;
+		if(myHealth > 0){
+			//you're good to go!
+		}
+		else{
+			//you're dead fam...
+			player.health = 1;
+			var x = funcs.popup("Oh no!\nYou died!","alert");
+			document.body.appendChild(x);
+			$(x).on("remove",function() {
+				var y = document.createElement("DIV");
+				y.id = "deathFadeOut";
+				document.body.appendChild(y);
+				//Jquery gets bugs if the Node is not faded out before faded in.
+				$(y).fadeOut(0);
+				$(y).fadeIn(2000);
+				setTimeout(function() {
+					//different reboot sequences depending on the game mode.
+					if(game.gameMode === "local"){
+						var para = document.createElement("P");
+						para.className = "DeathText"
+						para.textContent = "Reloading the WebPage in: 10"
+						document.getElementById("deathFadeOut").appendChild(para)
+						var count = 10;
+						window.setInterval(function() {
+							count = count - 1;
+							document.getElementsByClassName("DeathText")[0].textContent = "Reloading the WebPage in: " + count;
+							console.log(count);
+							if(count === 0){
+								location.reload();
+							}
+						},1000)
+					}
+					else{
+						alert("?\nYou shouldn't be playing anything other than local...")
+					}
+				},2001)
+			});
+		}
 	}
 };
 
@@ -312,7 +373,7 @@ var funcs = {
 					$(c).fadeOut(500);
 					$(back).fadeOut(500);
 					setTimeout(function(){
-						document.body.removeChild(bigc);
+						$(bigc).remove();
 					},510)
 					player.togglePause();
 				};
@@ -398,14 +459,14 @@ function fireBullet(power,velocity,startx,starty){
 	x.damage = power;
 	document.body.appendChild(x);
 	//adding it to the new array system
-	game.enemyArray.push(x);
+	game.bulletArray.push(x);
 	setTimeout(function(){
 		x.style.transform = "translate(" + window.innerWidth + "px," + starty + ")";
 		setTimeout(function(){
 			document.body.removeChild(x);
 			//This is removing it from my new array system to remove Jquery bugs.
-			var Aplace = game.enemyArray.indexOf(x)
-			game.enemyArray.splice(Aplace,1);
+			var Aplace = game.bulletArray.indexOf(x)
+			game.bulletArray.splice(Aplace,1);
 		},velocity * 1000)
 	},10);
 };
@@ -429,8 +490,8 @@ function enemy (health,speed) {
 	this.initialize = function() {
 		var a = this;
 		var checker = window.setInterval(function(){
-			for(i=0;i<game.enemyArray.length;i++){
-				var thisNode = game.enemyArray[i];
+			for(i=0;i<game.bulletArray.length;i++){
+				var thisNode = game.bulletArray[i];
 				if(funcs.checkCollision($(x),$(thisNode))){
 					a.health = a.health - thisNode.damage;
 					document.body.removeChild(thisNode);
@@ -439,12 +500,15 @@ function enemy (health,speed) {
 			if(a.health <= 0 || $(x).offset().left <= 0){
 				document.body.removeChild(x);
 				game.enemyCounter = game.enemyCounter - 1;
+				var removePlace = game.enemyArray.indexOf(x);
+				game.enemyArray.splice(removePlace,1);
 				window.clearInterval(checker);
 			}
 		},10)
 
 	};
 	game.enemyCounter = game.enemyCounter + 1;
+	game.enemyArray.push(x)
 }
 
 function trackerEnemy(health,speed){
@@ -502,11 +566,9 @@ function trackerEnemy(health,speed){
 		},100)
 
 		var checker = window.setInterval(function(){
-
-
-			//console.log(distance);
-			for(i=0;i<game.enemyArray.length;i++){
-				var thisNode = game.enemyArray[i];
+			for(i=0;i<game.bulletArray.length;i++){
+				var thisNode = game.bulletArray[i];
+				//console.log(funcs.checkCollision($(x),$(thisNode)))
 				if(funcs.checkCollision($(x),$(thisNode))){
 					a.health = a.health - thisNode.damage;
 					document.body.removeChild(thisNode);
@@ -515,14 +577,17 @@ function trackerEnemy(health,speed){
 			if(a.health <= 0 || $(x).offset().left <= 0){
 				document.body.removeChild(x);
 				game.enemyCounter = game.enemyCounter - 1;
+				var removePlace = game.enemyArray.indexOf(x);
+				game.enemyArray.splice(removePlace,1);
 				window.clearInterval(checker);
-				window.clearInterval(tracker);
 			}
 		},10)
 
 	};
 	game.enemyCounter = game.enemyCounter + 1;
+	game.enemyArray.push(x);
 }
+
 function boot (num) {
 	switch(num){
 		case 0:
@@ -533,7 +598,6 @@ function boot (num) {
 		break;
 	}
 };
-
  	
 /*
  *For safe keeping:
@@ -553,4 +617,3 @@ function boot (num) {
  	(Number(player.y().substring(0,player.y().length - 2)) - 7.5).toString() + "px"
  	)
 */
-
