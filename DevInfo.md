@@ -26,8 +26,24 @@ game.spawn
 game.spawn.enemy(type)
 /*
  *This will spawn an enemy base on what string you pass in for [type]
- *If you pass in averageJoe it will spawn a low-level enemy that travels at a decent speed.
+ *NAME:         |DESCRIPTION
+ *averageJoe    |It will spawn a low-level enemy that travels at a decent speed.
+ *tracker       |It will spawn the same level as an averageJoe, but it follows the player very quickly!
  *To customize, add some enemies of your own!
+ */
+game.bulletArray
+/*
+ *This property (Array) is used to fix a bug with the collision checker for the enemies.
+ *When two bullets were on the screen at the same time, it would cause an error with Jquery by not being able to check
+ *Both, resulting on a random chance that the bullet would actually work.
+ *Thus, I put all bullet nodes in an array and the script goes throught the array node by node insted of
+ *Trying to select the first node that comes up when it searches for a <.GameBullet>.
+ */
+game.enemyArray
+/*
+ *To avoid the errors I had with the bullets (see game.Bullet Array),
+ *I went straight for the array attempt (and it worked).
+ *This is used for player health in checking if the player has been hit by an enemy.
  */
 ```
 ### Object : player
@@ -76,6 +92,13 @@ player.shoot()
  *This does a lot of the work for you when attempting to shoot a bullet.
  * (i.e. putting the bullet in front of your character which gives the effect that it comes from your ship).
  */
+player.checkHealth()
+/*
+ *player.checkHealth() does 3 things:
+ *1. It checks if the player has been hit by an enemy (and reacts accordingly).
+ *2. It checks after #1 if the player's health has dropped to 0 (are they dead).
+ *3. If the player is dead it runs a sequnce leading to the restart of the game.
+ */
 ```
 ### Object : funcs
 ```javascript
@@ -121,15 +144,18 @@ this.initialize()
 /*
  *sets the window.setInterval() for checking the health (If zero)
  *and for checking if a bullet has touched the div.
+ *UPDATE^^^: It checks the bullets by checking an array in the game object
+ *to remove a large bug that prevented accurate results if two (or more) bullets were on screen at the same time.
  */
 ```
 ### Object Constructor : trackerEnemy
 ```javascript
 function trackerEnemy()
 /*
- *This is a work in progress,
- *The details for this constructor will be added when the 
- *feauture is added to the game
+ *This function runs the same as the enemy() function.
+ *EXCEPT: it changes its style.transform (translate) to the player's position 
+ *constantly until death, and also ajusts its speed according to the distance (retrived by using the pythagorean theorem)
+ *from the player
  */
 ```
 ### Function : boot
@@ -144,5 +170,6 @@ function boot()
  *rather than rebuilding the parts of the game that do this "hopping" of function/method to function/method until the 
  *desired functions/methods had been called.
  *Fix this error on your own fork, and we'll be happy to give credit and implement the changes you've made!
+ *UPDATE: Part of this error has been fixed by using the Jquery UI method .on("remove",callback)
  */
 ```
