@@ -1,0 +1,207 @@
+/* PROPERTY OF CALDER READE MILSOM WHITE 
+ * COPYRIGHT 2016 Feb. 15th
+ * contact : calderwhite1@gmail.com
+ */
+html,body{
+  margin:0px;
+  padding: 0px;
+}
+h1{
+	position: relative;
+	text-align: center;
+  color: black;
+  font:50px Impact, Charcoal, sans-serif;
+  margin-top:15px;
+}
+table,th,td{
+  border: 2px solid  	#909090 ; 
+  border-collapse: collapse;
+}
+td,th{
+  padding: 3px;
+  font-family: ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡Ãƒâ€šÃ‚Â¬ÃƒÆ’Ã¢â‚¬Â¹Ãƒâ€¦Ã¢â‚¬Å“Trebuchet MSÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡Ãƒâ€šÃ‚Â¬ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¾Ãƒâ€šÃ‚Â¢, Helvetica, sans-serif;
+  font-size:16px;
+}
+table{
+  width: 99%;
+  margin:5px;
+}
+a {
+  color: #1e6bb8;
+  text-decoration: none; }
+a:hover {
+    text-decoration: underline;
+}
+@-webkit-keyframes rotating /* Safari and Chrome */ {
+  from {
+    -ms-transform: rotate(0deg);
+    -moz-transform: rotate(0deg);
+    -webkit-transform: rotate(0deg);
+    -o-transform: rotate(0deg);
+    transform: rotate(0deg);
+  }
+  to {
+    -ms-transform: rotate(360deg);
+    -moz-transform: rotate(360deg);
+    -webkit-transform: rotate(360deg);
+    -o-transform: rotate(360deg);
+    transform: rotate(360deg);
+  }
+}
+@keyframes rotating {
+  from {
+    -ms-transform: rotate(0deg);
+    -moz-transform: rotate(0deg);
+    -webkit-transform: rotate(0deg);
+    -o-transform: rotate(0deg);
+    transform: rotate(0deg);
+  }
+  to {
+    -ms-transform: rotate(360deg);
+    -moz-transform: rotate(360deg);
+    -webkit-transform: rotate(360deg);
+    -o-transform: rotate(360deg);
+    transform: rotate(360deg);
+  }
+}
+.rotating {
+  -webkit-animation: rotating 7s linear infinite;
+  -moz-animation: rotating 7s linear infinite;
+  -ms-animation: rotating 7s linear infinite;
+  -o-animation: rotating 7s linear infinite;
+  animation: rotating 7s linear infinite;
+  position: absolute;
+  background-color: black;
+  height: 30px;
+  width: 30px;
+  left:48.7%;
+}
+.topBar{
+  position: relative;
+  top:0px;
+  height:150px;
+  text-align: center;
+}
+.leftSide{
+  font-family: ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡Ãƒâ€šÃ‚Â¬ÃƒÆ’Ã¢â‚¬Â¹Ãƒâ€¦Ã¢â‚¬Å“Trebuchet MSÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡Ãƒâ€šÃ‚Â¬ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¾Ãƒâ€šÃ‚Â¢, Helvetica, sans-serif;
+  font-size: 38px;
+  position: relative;
+  left:15%;
+  width: 190px;
+}
+.about{
+  position: relative;
+  width: 99.9%;
+  height: 300px;
+}
+.aboutGame{
+  position: relative;
+  font-family: ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡Ãƒâ€šÃ‚Â¬ÃƒÆ’Ã¢â‚¬Â¹Ãƒâ€¦Ã¢â‚¬Å“Trebuchet MSÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡Ãƒâ€šÃ‚Â¬ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¾Ãƒâ€šÃ‚Â¢, Helvetica, sans-serif;
+  font-size:16px;
+  padding: 5px;
+  margin: 10px;
+  height: 150px;
+  width: 610px;
+  background-color:#E0E0E0 ;
+  border: 1px solid #989898 ;
+  border-radius: 7px;
+}
+.box2{
+  position: absolute;
+  height: 30px;
+  width: 30px;
+  background-color:#cc00ff;
+  border-radius: 5px;
+  transform:rotate(40deg);
+}
+.aboutPointer{
+  font-family: ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡Ãƒâ€šÃ‚Â¬ÃƒÆ’Ã¢â‚¬Â¹Ãƒâ€¦Ã¢â‚¬Å“Trebuchet MSÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡Ãƒâ€šÃ‚Â¬ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¾Ãƒâ€šÃ‚Â¢, Helvetica, sans-serif;
+  position: absolute;
+  width: 60px;
+  top:100px;
+  left:58%;
+  transform: rotate(-30deg)
+}
+.arrow{
+  font-size: 19px;
+}
+.demo{
+  position: relative;
+  margin:center;
+  height: 330px;
+  width: 70%;
+  left:15%;
+  padding: 5px;
+  background-color: #F0F0F0 ;
+  border:1px solid #E0E0E0;
+  border-radius: 30px;
+  transition: all 2s ease 0s;
+}
+.team{
+  position: relative;
+  width: 99.9%;
+  height: 340px;
+  padding-top:20px;
+}
+.teamh{
+  font-family: ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡Ãƒâ€šÃ‚Â¬ÃƒÆ’Ã¢â‚¬Â¹Ãƒâ€¦Ã¢â‚¬Å“Trebuchet MSÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡Ãƒâ€šÃ‚Â¬ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¾Ãƒâ€šÃ‚Â¢, Helvetica, sans-serif;
+  font-size: 38px;
+  position: relative;
+  left:45%;
+  width:200px;
+}
+.teamPara{
+  position: relative;
+  text-align: center;
+  font-family: ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡Ãƒâ€šÃ‚Â¬ÃƒÆ’Ã¢â‚¬Â¹Ãƒâ€¦Ã¢â‚¬Å“Trebuchet MSÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡Ãƒâ€šÃ‚Â¬ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¾Ãƒâ€šÃ‚Â¢, Helvetica, sans-serif;
+  font-size:20px;
+}
+.demo1{
+  position: relative;
+  border:1px solid  #D8D8D8 ;
+  left:42.1%;
+}
+.demoh{
+  font-family: ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡Ãƒâ€šÃ‚Â¬ÃƒÆ’Ã¢â‚¬Â¹Ãƒâ€¦Ã¢â‚¬Å“Trebuchet MSÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡Ãƒâ€šÃ‚Â¬ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¾Ãƒâ€šÃ‚Â¢, Helvetica, sans-serif;
+  font-size: 50px;
+}
+.DeveloperInfo{
+  position: relative;
+  width: 99.9%;
+  height: 300px;
+}
+.DevPara{
+  position: relative;
+  text-align: center;
+  font-family: ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡Ãƒâ€šÃ‚Â¬ÃƒÆ’Ã¢â‚¬Â¹Ãƒâ€¦Ã¢â‚¬Å“Trebuchet MSÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡Ãƒâ€šÃ‚Â¬ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¾Ãƒâ€šÃ‚Â¢, Helvetica, sans-serif;
+  font-size:18px;
+}
+.devh{
+  font-family: ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡Ãƒâ€šÃ‚Â¬ÃƒÆ’Ã¢â‚¬Â¹Ãƒâ€¦Ã¢â‚¬Å“Trebuchet MSÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡Ãƒâ€šÃ‚Â¬ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¾Ãƒâ€šÃ‚Â¢, Helvetica, sans-serif;
+  font-size: 38px;
+  position: relative;
+  text-align: center;
+}
+.creditBar{
+  position: relative;
+  top:100%;
+  height: 50px;
+  width: 100%;
+  background: -moz-linear-gradient(#404040 ,black);
+}
+.creditText{
+  position: absolute;
+  padding: 3px;
+  vertical-align: middle;
+  line-height: 10px;
+  color :#606c71;
+  font-family: ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡Ãƒâ€šÃ‚Â¬ÃƒÆ’Ã¢â‚¬Â¹Ãƒâ€¦Ã¢â‚¬Å“Trebuchet MSÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡Ãƒâ€šÃ‚Â¬ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¾Ãƒâ€šÃ‚Â¢, Helvetica, sans-serif;
+}
+.ourGithub{
+  position: relative;
+  height: 200px;
+  width: 204px;
+  left:41%;
+  padding: 50px;
+  padding-top:0px;
+}
