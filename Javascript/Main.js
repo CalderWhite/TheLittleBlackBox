@@ -98,6 +98,7 @@ var game = {
 	enemyCounter : 0,
 	bulletArray : [],
 	enemyArray : [],
+	enemyObjects : [],
 	spawn : {
 		enemy : function(type) {
 			switch(type){
@@ -113,7 +114,6 @@ var game = {
 			}
 		}
 	}
-
 };
 
 var player = {
@@ -227,11 +227,9 @@ var player = {
 			if(funcs.checkCollision($(".box1"),$(thisNode))){
 				//you've been hit!
 				player.health = player.health - 1;
-				game.togglePause();
+				game.enemyObjects[i].health = -1;
+				//game.togglePause();
 				//remeber to remove all enemies
-			}
-			else{
-				pass;
 			}
 		}
 		//checking if you're dead.
@@ -242,6 +240,10 @@ var player = {
 		else{
 			//you're dead fam...
 			player.health = 1;
+			//YAAA, BLOWING UP THE PLAYER
+			funcs.blowUp($(".box1"),100)
+			$(".box1").on("remove",function(){
+			setTimeout(function(){
 			var x = funcs.popup("Oh no!\nYou died!","alert");
 			document.body.appendChild(x);
 			$(x).on("remove",function() {
@@ -273,7 +275,10 @@ var player = {
 					}
 				},2001)
 			});
-		}
+			},1000)
+		})
+		$(".box1").remove();
+	}
 	}
 };
 
@@ -429,9 +434,65 @@ var funcs = {
 				return bigc;
 			break;
 		}
+	},
+	blowUp : function(div,amount){
+		for(i=0;i<amount;i++){
+			createDiv(div)
+		};
 	}
 }
 
+function createDiv (div) {
+	var transitionx = Math.floor(Math.random() * 1000);
+			var transitiony = Math.floor(Math.random() * 1000);
+
+			var x = document.createElement("DIV");
+			x.className = "shrapnel";
+			x.style.backgroundColor = $(div).css("backgroundColor");
+			x.style.transform = "translate(" + div.offset().left + "px," + div.offset().top + "px)";
+			if(transitionx > window.innerWidth){
+				transitionx = window.innerWidth - 1;
+			}
+			if(transitiony > window.innerHeight){
+				transitiony = window.innerHeight - 1;
+			}
+			//pythagoren theorem and graphing stuff...
+			var speed = 1000;
+					var meX = $(x).offset().left;
+					var meY = $(x).offset().top;
+			if(transitionx < meX){
+				var x1 = meX;
+				var x2 = transitionx; 
+			}
+			else{
+			var x1 = transitionx;
+			var x2 = meX;	
+			};
+			if(transitiony < meY){
+			var y1 = meY;	
+			var y2 = transitiony;
+			}
+			else{
+			var y1 = transitiony;
+			var y2 = meY;		
+			};
+	var distance = Math.sqrt(Math.pow(x1 - x2,2) + Math.pow(y1 - y2,2));
+	var actualVelocity = distance/speed;
+	if(actualVelocity < 0.1){
+		actualVelocity = 0.1;
+	};
+	document.body.appendChild(x)
+	setTimeout(function(){
+		x.style.transition = "all " + actualVelocity.toString() + "s";
+		x.style.transform  = "translate(" + transitionx + "px," + transitiony + "px)";
+		setTimeout(function(){
+			$(x).fadeOut(200)
+			setTimeout(function() {
+				$(x).remove();
+			},200)
+		},actualVelocity * 1000 - 500 )
+	},10)
+		};
 function fireBullet(power,velocity,startx,starty){
 	/*The Power goes into a property called "damage" on the Node itself,
 	 *Velocity is actually the transition time
@@ -498,10 +559,14 @@ function enemy (health,speed) {
 				}
 			}
 			if(a.health <= 0 || $(x).offset().left <= 0){
-				document.body.removeChild(x);
+				this.health = -1;
+				game.enemyObjects.splice(game.enemyObjects.indexOf(x),1)
+				setTimeout(function(){document.body.removeChild(x);},10);
 				game.enemyCounter = game.enemyCounter - 1;
 				var removePlace = game.enemyArray.indexOf(x);
 				game.enemyArray.splice(removePlace,1);
+				
+				funcs.blowUp($(x),100)
 				window.clearInterval(checker);
 			}
 		},10)
@@ -509,6 +574,7 @@ function enemy (health,speed) {
 	};
 	game.enemyCounter = game.enemyCounter + 1;
 	game.enemyArray.push(x)
+	game.enemyObjects.push(this)
 }
 
 function trackerEnemy(health,speed){
@@ -546,14 +612,6 @@ function trackerEnemy(health,speed){
 	var y1 = $(".box1").offset().top;
 	var y2 = meY;		
 	};
-		/*
-	console.log("x1: " + x1 + " x2: " + x2 + " y1: " + y1 + " y2: " + y2
-		+"\n"
-		+(x1 - x2).toString()
-		+" "
-		+(y1 - y2).toString()
-		);
-		*/
 	var distance = Math.sqrt(Math.pow(x1 - x2,2) + Math.pow(y1 - y2,2));
 	//console.log(distance);
 	var actualVelocity = distance/speed;
@@ -575,10 +633,14 @@ function trackerEnemy(health,speed){
 				}
 			}
 			if(a.health <= 0 || $(x).offset().left <= 0){
-				document.body.removeChild(x);
+				this.health = -1;
+				game.enemyObjects.splice(game.enemyObjects.indexOf(x),1)
+				setTimeout(function(){document.body.removeChild(x);},10)
 				game.enemyCounter = game.enemyCounter - 1;
 				var removePlace = game.enemyArray.indexOf(x);
 				game.enemyArray.splice(removePlace,1);
+				
+				funcs.blowUp($(x),100)
 				window.clearInterval(checker);
 			}
 		},10)
@@ -586,6 +648,7 @@ function trackerEnemy(health,speed){
 	};
 	game.enemyCounter = game.enemyCounter + 1;
 	game.enemyArray.push(x);
+	game.enemyObjects.push(this);
 }
 
 function boot (num) {
