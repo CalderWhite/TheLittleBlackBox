@@ -205,6 +205,8 @@ var player = {
 		bulletSpeed : null
 		,
 		//denominator for game.reloadBar.tryReload variable "updateInterval"
+		//100 : semi automatic
+		//200 : non automatic
 		reloadTime : null
 	},
 	shootMode : "click",
@@ -216,6 +218,29 @@ var player = {
  				(Number(player.x().substring(0,player.x().length - 2)) + 30).toString() + "px",
  				(Number(player.y().substring(0,player.y().length - 2)) - 7.5).toString() + "px"
  			)
+ 			//sounds
+ 			if(player.weapons.bulletPower === 2){
+ 				player.sounds.regularBullet();
+ 				var x = document.createElement("IMG");
+				x.src = "images/flash1.png";
+				x.style.height = "50px";
+				x.style.width = "100px";
+				x.style.position = "absolute";
+				x.style.top = "-18px";
+				x.style.left = "15px";
+				player.DOM().appendChild(x);
+				/*
+				setTimeout(function() {
+					x.src = "images/muzzleflashmachineside.png"
+				},25)
+				*/
+				setTimeout(function(){
+					player.DOM().removeChild(x);
+				},50);
+ 				setTimeout(function(){
+ 					player.sounds.regularShell();
+ 				},650);
+ 			}
 		}
 		game.reloadBar.tryReload();
 	},
@@ -279,6 +304,24 @@ var player = {
 		})
 		$(".box1").remove();
 	}
+	},
+	sounds : {
+		regularBullet : function() {
+			var a = document.createElement("AUDIO");
+			a.id = "regularBullet"
+			a.src = "audio/weapons/regularBullet.mp3";
+			document.body.appendChild(a);
+			a.play();
+			setTimeout(function(){a.remove()},1000);
+		},
+		regularShell : function() {
+			var a = document.createElement("AUDIO");
+			a.id = "regularBullet"
+			a.src = "audio/weapons/regularShell.mp3";
+			document.body.appendChild(a);
+			a.play();
+			setTimeout(function(){a.remove()},1000);
+		}
 	}
 };
 
@@ -493,6 +536,7 @@ function createDiv (div) {
 		},actualVelocity * 1000 - 500 )
 	},10)
 		};
+
 function fireBullet(power,velocity,startx,starty){
 	/*The Power goes into a property called "damage" on the Node itself,
 	 *Velocity is actually the transition time
@@ -649,6 +693,34 @@ function trackerEnemy(health,speed){
 	game.enemyCounter = game.enemyCounter + 1;
 	game.enemyArray.push(x);
 	game.enemyObjects.push(this);
+}
+
+function fallShell (startx,starty) {
+	var x = document.createElement("DIV");
+	x.className = "shell";
+	x.style.top = starty;
+	x.style.left = startx;
+	var speed = (window.innerHeight - starty)/1000;
+	x.style.transition = "all " + speed + "s";
+	var endPos = window.innerHeight - starty;
+	setTimeout(function(){
+		x.style.transform = "translate(" + 0 + "px," + (endPos) + "px) rotate(15deg)";
+		console.log(x.style.transform);
+	},10)
+	setTimeout(function(){
+		x.style.transform = "translate(" + 0 + "px," + (endPos - 40) + "px) rotate(-360deg)";
+		setTimeout(function(){
+			//x.style.transform = "translate(" + 0 + "px," + window.innerHeight + "px) rotate(-360)";
+			//x.style.transition = "all 1s ease 0";
+			x.style.transform = "translate(" + 0 + "px," + endPos + "px) rotate(-180deg)";
+			console.log(x.style.transform);
+			setTimeout(function(){
+				console.log($(x).offset().top)
+				$(x).remove();
+			},speed*1000)
+		},speed*1000);
+	},10 + speed*1000);
+	document.body.appendChild(x);
 }
 
 function boot (num) {
