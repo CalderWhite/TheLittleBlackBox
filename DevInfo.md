@@ -146,6 +146,8 @@ this.initialize()
  *and for checking if a bullet has touched the div.
  *UPDATE^^^: It checks the bullets by checking an array in the game object
  *to remove a large bug that prevented accurate results if two (or more) bullets were on screen at the same time.
+ *UPDATE:
+ *Also they also expoled when they die.
  */
 ```
 ### Object Constructor : trackerEnemy
