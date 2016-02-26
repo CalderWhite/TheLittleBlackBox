@@ -18,6 +18,9 @@ Pause game.
 (and un-pause)
 ### ctrl + s
 Spawn a low-level enemy.
+### ctrl + t
+Spawn a tracker enemy.  
+It trackes you as you move!
 # Developers!
 If you are a developer, "We want you!". We encourge all  
 developers to hack our api and find out how it works.  
