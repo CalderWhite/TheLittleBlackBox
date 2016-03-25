@@ -1,0 +1,19 @@
+{
+  "name": "Little Blackbox MP edition",
+  "version": "1.0.2",
+  "description": "not atm",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/TheSeceretDevs/TheLittleBlackBox.git"
+  },
+  "author": "wilson wang",
+  "license": "UNL",
+  "bugs": {
+    "url": "https://github.com/TheSeceretDevs/TheLittleBlackBox/issues"
+  },
+  "homepage": "https://github.com/TheSeceretDevs/TheLittleBlackBox#readme"
+}
