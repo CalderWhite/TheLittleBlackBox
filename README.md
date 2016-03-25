@@ -29,6 +29,7 @@ Spawn a low-level enemy.
 Spawn a tracker enemy.  
 It trackes you as you move!
 # Developers!
+Wilson (Fengchi) Wang - xerodragon72
 If you are a developer, "We want you!". We encourage all  
 developers to hack our api and find out how it works. its probably impossible but try anyways as xerodragon72 will be developing this and he works makes it so that if you host the server you can feel safe and secure that no one will hack you. but if you were to ever find a way to hack my server code please inform me.
 So fork! fork! fork!
