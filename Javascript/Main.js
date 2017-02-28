@@ -41,7 +41,7 @@ var game = {
             game.spawn.enemy("averageJoe");
             return false; 
         });
-		Mousetrap.bind('ctrl+t', function(){
+		Mousetrap.bind('ctrl+y', function(){
             game.spawn.enemy("tracker");
             return false; 
         });
